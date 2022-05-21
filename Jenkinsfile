@@ -9,7 +9,8 @@ stages {
  stage("Code Checkout from github") {
   steps {
    git branch: 'main',
-    url: 'https://github.com/oumaima-boubaker/maven_pipeline_project.git'
+    //url: 'https://github.com/oumaima-boubaker/maven_pipeline_project.git'
+      url: 'https://github.com/eyaboubaker/maven_pipeline.git'
   }
  }
        stage ('Compile Stage') {
@@ -36,7 +37,9 @@ stages {
          stage ('Sonarqube analysis'){
               steps {
                    withSonarQubeEnv('SonarQube') {
-                        sh "mvn sonar:sonar"
+                       // sh 'mvn sonar:sonar'
+                       sh 'mvn clean install  sonar:sonar -Dsonar.host.url=http://192.168.0.9:9000/ -Dsonar.login=SONARQUBE_TOKEN1 '
+                        
                    }
               }
          }
